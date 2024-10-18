@@ -76,12 +76,12 @@ There are two ways to install the package:
 
 ### Training
 
-The `examples/train.py` script is used to fine-tune language models. The script includes flexible command-line arguments to specify model configuration, dataset splits, and training parameters.
+The training script is accessible via the entry point `train`, which can be run directly from the terminal after the package is installed. This entry point corresponds to the `examples/train.py` script and includes flexible command-line arguments to specify model configuration, dataset splits, and training parameters.
 
 **Example Command**:
 
 ```bash
-python train.py \
+train \
     --model_checkpoint meta-llama/Llama-2-7b-hf \
     --dataset_name StoryTelling \
     --epochs 20 \
@@ -114,12 +114,12 @@ python train.py \
 
 ### Evaluation
 
-The `examples/evaluate.py` script evaluates trained models on specified datasets, using either a single model or combining two models with CP-Fuse.
+The evaluation script is accessible via the entry point `evaluate`. This entry point corresponds to the `examples/evaluate.py` script and evaluates trained models on specified datasets, using either a single model or combining two models with CP-Fuse.
 
 **Example Command**:
 
 ```bash
-python evaluate.py \
+evaluate \
     --model_checkpoint1 ./models/StoryTelling_split_1 \
     --model_checkpoint2 ./models/StoryTelling_split_2 \
     --dataset_name StoryTelling \

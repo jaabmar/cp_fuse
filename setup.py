@@ -33,4 +33,10 @@ setup(
         "huggingface-hub==0.23.4",
         "bitsandbytes==0.44.1",
     ],
+    entry_points={
+        "console_scripts": [
+            "train=examples.train:main",
+            "evaluate=examples.evaluate:main",
+        ],
+    },
 )
