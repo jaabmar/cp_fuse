@@ -1,4 +1,4 @@
-# CP-Fuse: Copyright Protecting Model Fusion for Language Generation
+# CP-Fuse: Adaptive Model Fusion for Copyright-Protected Language Generation
 
 <!-- [![arXiv](https://img.shields.io/badge/stat.ML-arXiv%3A2401.17823-B31B1B.svg)](https://arxiv.org/abs/2401.17823) -->
 [![Python 3.12.3](https://img.shields.io/badge/python-3.12.3-blue.svg)](https://python.org/downloads/release/python-3115/)
