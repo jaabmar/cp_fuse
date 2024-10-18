@@ -67,7 +67,7 @@ There are two ways to install the package:
    pip install --upgrade pip
    pip install -e .
    ```
-2. **Direct Installation from GitHub (Recommended):**
+2. **Direct Installation from GitHub:**
    You can also install the package directly from GitHub. 
    ```bash
    pip install git+https://github.com/jaabmar/cp_fuse.git

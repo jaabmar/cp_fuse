@@ -21,18 +21,18 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
 class CPModel:
-    """Combined Probability Model for text generation using two language models.
+    """CP-Fuse Model for text generation using two language models.
 
     This class combines two language models and performs text generation by optimally
-    combining the outputs of the two models at each generation step.
+    combining the outputs of the two models at each generation step in a way that no 
+    memorized training data is reproduced.
 
     Attributes:
         model1 (torch.nn.Module): The first language model.
         model2 (torch.nn.Module): The second language model.
-        config (transformers.PretrainedConfig): Configuration of the models.
         grid_size (int): The size of the grid for optimization.
         verbose (bool): If True, prints detailed logs.
-        fixed_coef (Optional[float]): Fixed parameter for controlling the randomness of predictions.
+        fixed_coef (Optional[float]): Fixed coefficients for the model combination.
         step_solve (int): The number of steps between solving the optimization problem.
         device (torch.device): The device on which models are located.
     """
@@ -53,12 +53,11 @@ class CPModel:
             model2 (torch.nn.Module): The second language model.
             grid_size (int, optional): The size of the grid for optimization. Defaults to 10.
             verbose (bool, optional): If True, prints detailed logs. Defaults to False.
-            fixed_coef (Optional[float], optional): Fixed parameter for controlling the model combination. Defaults to None.
+            fixed_coef (Optional[float]): Fixed coefficients for the model combination. Defaults to None.
             step_solve (int, optional): The number of steps between solving the optimization problem. Defaults to 1.
         """
         self.model1 = model1
         self.model2 = model2
-        self.config = model1.config
         self.grid_size = grid_size
         self.verbose = verbose
         self.fixed_coef = fixed_coef
