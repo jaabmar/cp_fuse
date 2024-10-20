@@ -120,7 +120,7 @@ class CPModel:
         logits_warper = self._prepare_logits_warper(logits_warper, generation_config)
 
         # Generate outputs
-        output = self._greedy_search(
+        output = self._decode(
             input_ids=input_ids,
             pad_token_id=pad_token_id,
             eos_token_id=eos_token_id,
@@ -290,7 +290,7 @@ class CPModel:
             logits_warper.append(TemperatureLogitsWarper(generation_config.temperature))
         return logits_warper
 
-    def _greedy_search(
+    def _decode(
         self,
         input_ids: torch.Tensor,
         attention_mask: torch.Tensor,
@@ -305,7 +305,7 @@ class CPModel:
         do_sample: bool = False,
         **model_kwargs: Any,
     ) -> GenerateDecoderOnlyOutput:
-        """Perform greedy search for text generation.
+        """Perform greedy or sampling decoding for text generation.
 
         Args:
             input_ids (torch.Tensor): Input token IDs.
