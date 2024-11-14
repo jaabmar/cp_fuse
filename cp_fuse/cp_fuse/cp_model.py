@@ -300,7 +300,7 @@ class CPModel:
         eos_token_id: int,
         grid_size: int,
         step_solve: int,
-        output_logit: bool = True,
+        output_logits: bool = True,
         return_dict_in_generate: bool = True,
         do_sample: bool = False,
         **model_kwargs: Any,
@@ -316,7 +316,7 @@ class CPModel:
             eos_token_id (int): End-of-sequence token ID.
             grid_size (int): Grid size for optimization.
             step_solve (int): Steps between solving the optimization problem.
-            output_logit (bool, optional): If True, outputs logits. Defaults to True.
+            output_logits (bool, optional): If True, outputs logits. Defaults to True.
             return_dict_in_generate (bool, optional): If True, returns a GenerateDecoderOnlyOutput. Defaults to True.
             do_sample (bool, optional): If True, samples from the logits distribution. Defaults to False.
             **model_kwargs: Additional keyword arguments.
@@ -326,7 +326,7 @@ class CPModel:
         """
 
         # Initialize variables
-        logits_list: Optional[List[torch.Tensor]] = [] if (return_dict_in_generate and output_logit) else None
+        logits_list: Optional[List[torch.Tensor]] = [] if (return_dict_in_generate and output_logits) else None
 
         if isinstance(eos_token_id, int):
             eos_token_id_list = [eos_token_id]
