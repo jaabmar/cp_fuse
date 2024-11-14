@@ -56,6 +56,7 @@ class CPModel:
             fixed_coef (Optional[float]): Fixed coefficients for the model combination. Defaults to None.
             step_solve (int, optional): The number of steps between solving the optimization problem. Defaults to 1.
         """
+        self.config = model1.config
         self.model1 = model1
         self.model2 = model2
         self.grid_size = grid_size
