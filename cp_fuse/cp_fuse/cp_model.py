@@ -444,7 +444,7 @@ class CPModel:
         model: torch.nn.Module,
         input_ids: torch.Tensor,
         attention_mask: torch.Tensor,
-        past_key_values: Optional[Tuple[torch.Tensor]],
+        past_key_values: Optional[Tuple[torch.Tensor]] = None,
         **model_kwargs: Any,
     ) -> Tuple[torch.Tensor, Tuple[torch.Tensor]]:
         """Perform forward pass with the model.
