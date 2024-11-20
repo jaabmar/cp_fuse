@@ -45,6 +45,7 @@ class CPModel:
         verbose: bool = False,
         fixed_coef: Optional[float] = None,
         step_solve: int = 1,
+        device: Optional[torch.device] = None,
     ) -> None:
         """Initialize the CPModel with two language models.
 
@@ -64,14 +65,19 @@ class CPModel:
         self.fixed_coef = fixed_coef
         self.step_solve = step_solve
 
+        # Device management
+        self.device = device or next(self.model1.parameters()).device
+        if next(self.model1.parameters()).device != self.device:
+            self.model1.to(self.device)
+            print(f"[INFO] Model 1 moved to device: {self.device}")
+        if next(self.model2.parameters()).device != self.device:
+            self.model2.to(self.device)
+            print(f"[INFO] Model 2 moved to device: {self.device}")
+            
         # Ensure models are in eval mode
         self.model1.eval()
         self.model2.eval()
-
-        # Ensure both models are on the same device
-        self.device = next(self.model1.parameters()).device
-        if next(self.model2.parameters()).device != self.device:
-            self.model2.to(self.device)
+            
 
     @torch.no_grad()
     def generate(
@@ -82,6 +88,7 @@ class CPModel:
         stopping_criteria: Optional[StoppingCriteriaList] = None,
         logits_warper: Optional[LogitsProcessorList] = None,
         grid_size: Optional[int] = None,
+        parallelize: bool = True,
         **model_kwargs: Any,
     ) -> GenerateDecoderOnlyOutput:
         """Generate text sequences using the combined models.
@@ -93,8 +100,9 @@ class CPModel:
             stopping_criteria (Optional[StoppingCriteriaList], optional): Criteria to stop generation. Defaults to None.
             logits_warper (Optional[LogitsProcessorList], optional): Logits processor for modifying logits. Defaults to None.
             grid_size (Optional[int], optional): Grid size for optimization. Defaults to None.
+            parallelize (bool, optional): If True, performs parallel decoding for models. Defaults to True.
             **model_kwargs: Additional keyword arguments passed to the model.
-
+            
         Returns:
             GenerateDecoderOnlyOutput: The generated sequences and optional logits.
         """
@@ -304,6 +312,7 @@ class CPModel:
         output_logits: bool = True,
         return_dict_in_generate: bool = True,
         do_sample: bool = False,
+        parallelize: bool = True,
         **model_kwargs: Any,
     ) -> GenerateDecoderOnlyOutput:
         """Perform greedy or sampling decoding for text generation.
@@ -320,6 +329,7 @@ class CPModel:
             output_logits (bool, optional): If True, outputs logits. Defaults to True.
             return_dict_in_generate (bool, optional): If True, returns a GenerateDecoderOnlyOutput. Defaults to True.
             do_sample (bool, optional): If True, samples from the logits distribution. Defaults to False.
+            parallelize (bool, optional): If True, performs parallel decoding for models. Defaults to True.
             **model_kwargs: Additional keyword arguments.
 
         Returns:
@@ -344,6 +354,11 @@ class CPModel:
         past_key_values2 = None
         path_logprob1 = torch.zeros((batch_size, 1), device=self.device)
         path_logprob2 = torch.zeros((batch_size, 1), device=self.device)
+        
+        # Initialize CUDA streams if parallelize is True
+        if parallelize:
+            stream1 = torch.cuda.Stream(device=self.device)
+            stream2 = torch.cuda.Stream(device=self.device)
 
         # Start generation loop
         step_count = 0
@@ -361,7 +376,18 @@ class CPModel:
                 input_ids, attention_mask=attention_mask, past_key_values=past_key_values2, **model_kwargs
             )
 
-            # Generate logits and past_key_values
+        if parallelize:
+            # Asynchronous execution on separate CUDA streams
+            with torch.cuda.stream(stream1):
+                logits1, past_key_values1 = self.model_forward(self.model1, **input_ids1)
+
+            with torch.cuda.stream(stream2):
+                logits2, past_key_values2 = self.model_forward(self.model2, **input_ids2)
+
+            # Synchronize streams to ensure both computations are complete
+            torch.cuda.synchronize(self.device)
+        else:
+            # Sequential execution
             logits1, past_key_values1 = self.model_forward(self.model1, **input_ids1)
             logits2, past_key_values2 = self.model_forward(self.model2, **input_ids2)
 
