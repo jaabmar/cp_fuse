@@ -88,7 +88,7 @@ class CPModel:
         stopping_criteria: Optional[StoppingCriteriaList] = None,
         logits_warper: Optional[LogitsProcessorList] = None,
         grid_size: Optional[int] = None,
-        parallelize: bool = True,
+        parallelize: bool = False,
         **model_kwargs: Any,
     ) -> GenerateDecoderOnlyOutput:
         """Generate text sequences using the combined models.
@@ -100,7 +100,7 @@ class CPModel:
             stopping_criteria (Optional[StoppingCriteriaList], optional): Criteria to stop generation. Defaults to None.
             logits_warper (Optional[LogitsProcessorList], optional): Logits processor for modifying logits. Defaults to None.
             grid_size (Optional[int], optional): Grid size for optimization. Defaults to None.
-            parallelize (bool, optional): If True, performs parallel decoding for models. Defaults to True.
+            parallelize (bool, optional): If True, performs parallel decoding for models. Defaults to False.
             **model_kwargs: Additional keyword arguments passed to the model.
             
         Returns:
@@ -312,7 +312,7 @@ class CPModel:
         output_logits: bool = True,
         return_dict_in_generate: bool = True,
         do_sample: bool = False,
-        parallelize: bool = True,
+        parallelize: bool = False,
         **model_kwargs: Any,
     ) -> GenerateDecoderOnlyOutput:
         """Perform greedy or sampling decoding for text generation.
@@ -329,7 +329,7 @@ class CPModel:
             output_logits (bool, optional): If True, outputs logits. Defaults to True.
             return_dict_in_generate (bool, optional): If True, returns a GenerateDecoderOnlyOutput. Defaults to True.
             do_sample (bool, optional): If True, samples from the logits distribution. Defaults to False.
-            parallelize (bool, optional): If True, performs parallel decoding for models. Defaults to True.
+            parallelize (bool, optional): If True, performs parallel decoding for models. Defaults to False.
             **model_kwargs: Additional keyword arguments.
 
         Returns:

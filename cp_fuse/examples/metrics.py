@@ -99,6 +99,7 @@ def compute_statistics(model, data, tokenizer, batch=16, system_prompt=False):
                 generation_config=generation_config,
                 return_dict_in_generate=True,
                 output_logits=True,
+                parallelize=False
             )
             generations = tokenizer.batch_decode(outputs.sequences, skip_special_tokens=True)
             for i, (gen, input_text, input_tokens) in enumerate(zip(generations, batch_texts, batch_tensors.input_ids)):

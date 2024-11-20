@@ -50,11 +50,11 @@ def load_models(args, tokenizer):
     if args.model_checkpoint2:
         print(f"Loading CPModel with {args.model_checkpoint1} and {args.model_checkpoint2}")
         model1 = AutoModelForCausalLM.from_pretrained(
-            args.model_checkpoint1, device_map="auto", trust_remote_code=True
+            args.model_checkpoint1, device_map="auto", torch_dtype=torch.float16, trust_remote_code=True
         ).half()
         model1.resize_token_embeddings(len(tokenizer))
         model2 = AutoModelForCausalLM.from_pretrained(
-            args.model_checkpoint2, device_map="auto", trust_remote_code=True
+            args.model_checkpoint2, device_map="auto", torch_dtype=torch.float16, trust_remote_code=True
         ).half()
         model2.resize_token_embeddings(len(tokenizer))
 
