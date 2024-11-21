@@ -39,4 +39,7 @@ setup(
             "evaluate=examples.evaluate:main",
         ],
     },
+    extras_require={
+        "tests": ["pytest>=7.4.4", "pytest-mock>=3.10.0"],  
+    },
 )
