@@ -1,0 +1,36 @@
+name: Python Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11.5  
+
+    - name: Install project and test dependencies
+      run: pip install .[tests]
+
+    - name: Print Python Info
+      run: |
+        python --version
+        pip list
+
+    - name: Print sys.path
+      run: python -c "import sys; print(sys.path)"
+
+    - name: Run tests
+      run: pytest tests/  
