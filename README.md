@@ -1,6 +1,6 @@
 # CP-Fuse: Adaptive Model Fusion for Copyright-Protected Language Generation
 
-<!-- [![arXiv](https://img.shields.io/badge/stat.ML-arXiv%3A2401.17823-B31B1B.svg)](https://arxiv.org/abs/2401.17823) -->
+[![arXiv](https://img.shields.io/badge/stat.ML-arXiv%3A2401.17823-B31B1B.svg)](https://arxiv.org/abs/2412.06619)
 [![Python 3.12.3](https://img.shields.io/badge/python-3.12.3-blue.svg)](https://python.org/downloads/release/python-3123/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Pytorch 2.3.0](https://img.shields.io/badge/pytorch-2.3.0-green.svg)](https://pytorch.org/)
@@ -18,7 +18,7 @@
 
 ![CP-Fuse Diagram](./cp_fuse.png)
 
-This repository contains the Python implementation of Copyright-Protecting Model Fusion (CP-Fuse), a novel method for copyright protection introduced in the paper [*"Copyright-Protected Language Generation via Adaptive Model Fusion"*](https://openreview.net/pdf?id=kRoWeLTpL4). 
+This repository contains the Python implementation of Copyright-Protecting Model Fusion (CP-Fuse), a novel method for copyright protection introduced in the paper [*"Copyright-Protected Language Generation via Adaptive Model Fusion"*](https://arxiv.org/abs/2412.06619). 
 
 Traditional methods for mitigating copyright risks often involve post-processing constraints applied at inference time. However, these methods can be computationally intensive and may compromise the model's performance. CP-Fuse introduces a novel strategy that fuses the outputs of multiple models in a way that protects against copyright infringement. In particular, CP-Fuse adaptively aggregates the logits to minimize the reproduction of copyrighted content, adhering to a crucial balancing property to prevent the regurgitation of memorized data.
 
@@ -163,9 +163,10 @@ For any inquiries, please reach out:
 
 If you find this code useful, please consider citing our paper:
  ```
-@inproceedings{abadcopyright2024,
-  title={Copyright-Protected Language Generation via Adaptive Model Fusion},
-  author={Abad, Javier and Donhauser, Konstantin and  Pinto, Francesco and Yang, Fanny},
-  year={2024},
+@article{abadcopyright2024,
+      title={Copyright-Protected Language Generation via Adaptive Model Fusion}, 
+      author={Javier Abad and Konstantin Donhauser and Francesco Pinto and Fanny Yang},
+      year={2024},
+      journal={arXiv preprint arXiv:2412.06619},
 }
 ```
