@@ -1,6 +1,6 @@
 # CP-Fuse: Adaptive Model Fusion for Copyright-Protected Language Generation
 
-[![arXiv](https://img.shields.io/badge/stat.ML-arXiv%3A2401.17823-B31B1B.svg)](https://arxiv.org/abs/2412.06619)
+[![arXiv](https://img.shields.io/badge/stat.ML-arXiv%3A2412.06619-B31B1B.svg)](https://arxiv.org/abs/2412.06619)
 [![Python 3.12.3](https://img.shields.io/badge/python-3.12.3-blue.svg)](https://python.org/downloads/release/python-3123/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Pytorch 2.3.0](https://img.shields.io/badge/pytorch-2.3.0-green.svg)](https://pytorch.org/)
