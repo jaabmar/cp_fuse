@@ -163,10 +163,10 @@ For any inquiries, please reach out:
 
 If you find this code useful, please consider citing our paper:
  ```
-@article{abadcopyright2024,
+@article{abad2025copyright,
       title={Copyright-Protected Language Generation via Adaptive Model Fusion}, 
       author={Javier Abad and Konstantin Donhauser and Francesco Pinto and Fanny Yang},
-      year={2024},
-      journal={arXiv preprint arXiv:2412.06619},
+      journal={International Conference on Learning Representations},
+      year={2025},
 }
 ```
