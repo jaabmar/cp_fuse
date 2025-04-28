@@ -18,7 +18,7 @@
 
 ![CP-Fuse Diagram](./cp_fuse.png)
 
-This repository contains the Python implementation of Copyright-Protecting Model Fusion (CP-Fuse), a novel method for copyright protection introduced in the paper [*"Copyright-Protected Language Generation via Adaptive Model Fusion"*](https://arxiv.org/abs/2412.06619). 
+This repository contains the Python implementation of Copyright-Protecting Model Fusion (CP-Fuse), a novel method for copyright protection introduced in the **ICLR Oral paper** [*"Copyright-Protected Language Generation via Adaptive Model Fusion"*](https://arxiv.org/abs/2412.06619). 
 
 Traditional methods for mitigating copyright risks often involve post-processing constraints applied at inference time. However, these methods can be computationally intensive and may compromise the model's performance. CP-Fuse introduces a novel strategy that fuses the outputs of multiple models in a way that protects against copyright infringement. In particular, CP-Fuse adaptively aggregates the logits to minimize the reproduction of copyrighted content, adhering to a crucial balancing property to prevent the regurgitation of memorized data.
 
